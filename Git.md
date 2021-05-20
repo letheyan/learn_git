@@ -4,8 +4,6 @@
     <li>git官网下载安装程序，下载地址：https://git-scm.com/downloads，默认选项安装。</li>
     <li>安装完成后，在开始菜单里找到“Git”->“Git Bash”，蹦出一个类似命令行窗口的东西，就说明Git安装成功！</li>
 </ol>
-
-
 初始配置,在cmd或者Git Bash中输入：
 
 ```shell
@@ -18,7 +16,17 @@ git config --global user.email "email@example.com"
 ```shell
 git config user.name
 git config user.email
+git config --list
 ```
+
+查看版本：
+
+```bash
+git --version
+git version 2.31.1.windows.1
+```
+
+
 
 # 2、创建版本库
 
