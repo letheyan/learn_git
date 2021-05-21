@@ -815,10 +815,6 @@ URL: git@gitee.com:lethe00/git-learn.git
  * [pruned] gitee/tra
 ```
 
-
-
-
-
 # 8、标签管理
 
 1. 创建标签 git tag <name>
@@ -895,12 +891,38 @@ URL: git@gitee.com:lethe00/git-learn.git
    To github.com:michaelliao/learngit.git
     - [deleted]         v0.9
    ```
-   
-   
 
-   
+# 9、Git自定义
 
-   
+## 9.1 忽略文件编写
 
+1. 在工作目录下新建一个`.gitignore`文件
 
+   <img src=".\Git.assets\捕获-1621564115229.JPG" align="left" />
 
+2. 编写忽略文件
+
+   * 忽略里面的`.idea`文件夹，则如下：
+
+     <img src=".\Git.assets\捕获-1621564312226.JPG" align="left" />
+
+   * `!`表示不忽略指定的文件/文件夹，如下：
+
+     ` !test.txt`
+     
+   * 在指定文件夹里不忽略指定的文件，如下
+
+        ```bash
+        # 忽略scaffolds文件夹内的所有内容，但不忽略里面的draft.md文件。
+        scaffolds/*
+        !scaffolds/draft.md
+        ```
+     注意：这里必须在文件夹后面加上/*，否则是无法实现想要的效果的。
+
+   * `*`表示匹配任意字符；
+
+   * `?`表示匹配一个字符；
+
+   * `[]`表示匹配中括号内的单个字符：
+     - 可以使用`-`来表示连贯的字符，比如`0-9`，`a-z`，`A-Z`等，`[0-9]`表示匹配从0到9的单个字符。
+     - 可以使用`^`来表示除外，比如`[^0-9]`表示除0到9之外的单个字符。
