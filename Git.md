@@ -433,7 +433,7 @@ $ git remote rename GitHub github
 
 更改远程仓库名GitHub 为 github。
 
-## 6.4 克隆远程仓库
+## 6.5 克隆远程仓库
 
 1. 先cd到需要放置克隆仓库的目录中
 
@@ -451,7 +451,7 @@ $ git remote rename GitHub github
 
    等待下载完成。
 
-## 6.5 fetch/pull远程分支
+## 6.6 fetch/pull远程分支
 
 1. fetch使用
 
