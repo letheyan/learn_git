@@ -517,25 +517,35 @@ $ git remote rename GitHub github
 	
 	* 查看远程分支：
 	
-	```bash
-	$ git branch -r
-	  origin/HEAD -> origin/master    # 已经同步的分支
-	  origin/dev
-	  origin/master
-	```
+        ```bash
+        $ git branch -r
+          origin/HEAD -> origin/master    # 已经同步的分支
+          origin/dev
+          origin/master
+        ```
 	
 	* 查看本地和远程分支：
 	
-	```bash
-	$ git branch -a
-	  local
-	* master
-	  remotes/origin/HEAD -> origin/master
-	  remotes/origin/dev
-	  remotes/origin/master
-	```
+        ```bash
+        $ git branch -a
+          local
+        * master
+          remotes/origin/HEAD -> origin/master
+          remotes/origin/dev
+          remotes/origin/master
+        ```
 	
+	* 查看本地分支和远程分支的关系
 	
+	  ```bash
+	  $ git branch -vv
+	    bbb    3b7f0cf [gitee/dev] bbb01
+	  * ccc    cb662ee [gitee/dev: ahead 1] c修改
+	    dev    c0a073f add 笔记
+	    master 3a90171 save
+	  ```
+	
+	  
 	
 2. 创建/切换分支
 
@@ -808,11 +818,66 @@ Saved working directory and index state WIP on dev: 1bcf08c add merage
 
 ## 7.6 关联远程分支
 
-```bash
-$ git checkout -b dev origin/dev
+1. 创建一个本地的`bbb`分支，关联到远程的`gitee/dev`分支，即把远程分支的内容拉到本地的bbb分支。
+
+   如果此时是在master分支，是不会切换分支的。
+
+   ```bash
+   $ git branch --track bbb gitee/dev
+   Branch 'bbb' set up to track remote branch 'dev' from 'gitee'.
+   ```
+
+2. 创建一个本地的`ccc`分支，关联到远程的`gitee/dev`分支，即把远程分支的内容拉到本地的bbb分支。
+
+   如果此时是在master分支，会切换到ccc分支。
+
+   ```bash
+   $ git checkout -b ccc gitee/dev
+   Switched to a new branch 'ccc'
+   Branch 'ccc' set up to track remote branch 'dev' from 'gitee'.
+   ```
+
+   ```bash
+   $ git checkout --track origin/serverfix
+   # 这个命令是上面命令的简化，即在本地建立一个serverfix的分支，用来跟踪origin/serverfix。
+   ```
+3. 将当前分支关联到远程分支。
+	```bash
+	$ git branch --set-upstream-to gitee/dev
+	Branch 'bbb' set up to track remote branch 'dev' from 'gitee'.
+	```
+
+关联后可以直接使用`pull`和`fetch`命令，后面无需加参数了。
+
+如果用`pull`命令推送时报错：
+
+```
+fatal: The upstream branch of your current branch does not match
+the name of your current branch.  To push to the upstream branch
+on the remote, use
+
+    git push gitee HEAD:dev
+
+To push to the branch of the same name on the remote, use
+
+    git push gitee HEAD
+
+To choose either option permanently, see push.default in 'git help config'.
 ```
 
-说明：创建一个本地分支dev，并关联远程仓库origin中的dev分支。
+问题的原因是在分支创建时，使用了与远程不一致的分支名，解决办法：
+
+ * 更改分支名：
+
+   `$ git branch -m old_branch new_branch`
+
+
+ * 更改设置，输入以下命令即可：
+
+   `$ git config push.default upstream`
+
+   
+
 
 ## 7.7 查看本地分支和远程分支的追踪情况
 
