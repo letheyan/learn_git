@@ -485,7 +485,7 @@ $ git remote rm GitHub
 
    注：`git pull --all` `git fetch --all`拉取所有分支。 
 
-# 7、 分支
+# 7、分支
 
 ## 7.1 简单使用
 
@@ -575,6 +575,8 @@ $ git remote rm GitHub
    Deleted branch dev (was a05f140).
    ```
 	有些分支还没合并会提示无法删除，需要 -D 参数，即 `git branch -D 分支名`。
+	
+	* 删除远程分支`git push 远程仓库 --delete [branchname]`
 
 ---
 注：最新版本的Git提供了新的`git switch`命令来切换分支：
@@ -786,6 +788,34 @@ $ git checkout -b dev origin/dev
 ```
 
 说明：创建一个本地分支dev，并关联远程仓库origin中的dev分支。
+
+## 7.7 查看本地分支和远程分支的追踪情况
+
+```bash
+$ git remote show gitee                          # 显示本地与远程gitee仓库的情况。
+* remote gitee
+  Fetch URL: git@gitee.com:lethe00/git-learn.git
+  Push  URL: git@gitee.com:lethe00/git-learn.git
+  HEAD branch: master
+  Remote branches:
+    dev                    tracked
+    master                 tracked
+    refs/remotes/gitee/tra stale (use 'git remote prune' to remove)  # 远程分支已被删除的分支，
+  Local refs configured for 'git push':
+    dev    pushes to dev    (fast-forwardable)
+    master pushes to master (up to date)
+```
+
+远程分支已被删除的分支，根据提示可以使用 git remote prune 来同步删除这些分支，如下：
+
+```bash
+$ git remote prune gitee
+Pruning gitee
+URL: git@gitee.com:lethe00/git-learn.git
+ * [pruned] gitee/tra
+```
+
+
 
 
 
