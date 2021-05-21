@@ -273,6 +273,14 @@ Changes not staged for commit:
 
    方法和上面的 恢复文件 一样。
 
+## 5.3 修改上次commit的内容
+
+​		`$ git commit --amend`
+
+​		有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 --amend 选		项，进入vim模式，修改提交的内容。
+
+​		注：用`git commit -a -m "备注信息"` 可以跳过暂存区，直接提交。
+
 # 6、远程仓库
 
 ## 6.1 添加远程仓库
@@ -414,6 +422,16 @@ $ git remote rm GitHub
 ```
 
 此处的“删除”其实是解除了本地和远程的绑定关系，并不是物理上删除了远程库。远程库本身并没有任何改动。要真正删除远程库，需要登录到GitHub，在后台页面找到删除按钮再删除。
+
+注：`$ git remote show 远程仓库` 可查看详细的信息。
+
+## 6.4 重命名远程仓库
+
+```bash
+$ git remote rename GitHub github
+```
+
+更改远程仓库名GitHub 为 github。
 
 ## 6.4 克隆远程仓库
 
@@ -631,8 +649,6 @@ $ git commit -m "conflict fixed"
 [master cf810e4] conflict fixed
 ```
 
-
-
 用带参数`--graph`的`git log`也可以看到分支的合并情况：
 
 ```bash
@@ -651,6 +667,15 @@ $ git log --graph --pretty=oneline --abbrev-commit
 * 797b069 wrote a readme file
 * 5c5bf41 wrote a readme file
 ```
+
+查看已经合并到了当前分支的分支，`*`所在的为当前分支，其它分支已经合并到了该分支 是可以删除的。
+```bash
+$ git branch --merged
+  feature1
+* master
+```
+
+注：`$ git branch --no-merged`查看没有合并到当前分支的分支。
 
 合并成功后，删除分支：
 
