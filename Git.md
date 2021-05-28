@@ -26,6 +26,12 @@ git --version
 git version 2.31.1.windows.1
 ```
 
+window平台升级命令
+
+```bash
+git update-git-for-windows
+```
+
 
 
 # 2、创建版本库
@@ -117,7 +123,7 @@ git version 2.31.1.windows.1
    $ git checkout -- readme.txt
    ```
 
-5. 查看历史提交的版本
+5. 查看历史提交的版本，最近的更新排在最上面，如果历史记录很多，输入`q`退出。
 
    ```bash
    $ git log
@@ -209,18 +215,26 @@ git version 2.31.1.windows.1
 
 Git管理的是修改，而不是文件。包括：新增了一行，删除了一行，更改了某些字符，删了一些又加了一些字符，创建一个新文件。
 
-查看当前文件与版本库中最新的版本(即当前HEAD指向的版本)的区别：
+1. 查看当前文件与版本库中最新的版本(即当前HEAD指向的版本)的区别：
 
 ```bash
 $ git diff HEAD -- readme.txt
 ```
-查看当前文件与上个版本的区别：
+2. 查看当前文件与上个版本的区别：
 
 ```bash
 $ git diff HEAD^ -- readme.txt
 ```
 
+3. 查看尚未暂存的文件更新了哪些内容
 
+```bash
+$ git diff
+```
+
+此命令比较的是工作目录中当前文件和暂存区域快照之间的差异， 也就是修改之后还没有暂存起来的变化内容。
+
+若要查看已暂存的将要添加到下次提交里的内容，可以用 `git diff  --staged` 命令。
 
 ## 5.1 恢复文件/撤销修改
 
@@ -267,17 +281,33 @@ Changes not staged for commit:
 
 看上面第4行的提示，可以用`git add/rm <file>`来删除版本库的文件，即：
 
-`git add test.txt` 或 `git rm test.txt` 两个效果一样，然后commit一下就好。
+`git add test.txt` 或 `git rm test.txt` 两个效果一样，然后commit一下就好。加 `-f`强制删除。
 
 2、恢复删除的文件
 
    方法和上面的 恢复文件 一样。
 
-## 5.3 修改上次commit的内容
+3、让文件保留在磁盘，但是并不想让 Git 继续跟踪
+
+​	```$ git rm --cached test.txt```
+
+​	即：把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。
+
+## 5.3 重命名文件
+
+```bash
+$ git mv test.txt test1.txt
+```
+
+上命令，会把文件夹中的test.txt重命名为test1.txt。
+
+
+
+## 5.4 修改上次commit的内容
 
 ​		`$ git commit --amend`
 
-​		有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 --amend 选		项，进入vim模式，修改提交的内容。
+​	有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 --amend 选项，进入vim模式，修改提交的内容。这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令），那么快照会保持不变，而你所修改的只是提交信息。 
 
 ​		注：用`git commit -a -m "备注信息"` 可以跳过暂存区，直接提交。
 
@@ -311,6 +341,7 @@ The key's randomart image is:
 |                 |
 +----[SHA256]-----+
 ```
+
 
 如果一切顺利的话，可以在用户主目录里找到`.ssh`目录，里面有`id_rsa`和`id_rsa.pub`两个文件，这两个就是SSH Key的秘钥对，`id_rsa`是私钥，不能泄露出去，`id_rsa.pub`是公钥，可以放心地告诉任何人。
 
@@ -374,8 +405,6 @@ Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
 
 如果实在担心有人冒充GitHub服务器，输入`yes`前可以对照[GitHub的RSA Key的指纹信息](https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints/)是否与SSH连接给出的一致。
 
-
-
 ☆ `git remote add`后面的`GitHub`为本地关联到远程的一个名字，可以随便取，默认为 origin。
 
 
@@ -399,6 +428,7 @@ git push <远程仓库名> <本地分支名>:<远程分支名>
 ```bash
 git push <远程仓库名> <本地分支名>
 ```
+
 即 `$ git push origin master` 相等于 `$ git push origin master:master`。
 
 如果推送失败，则因为远程分支比你的本地更新，需要先用`git pull`拉取更新试图合并后，再推送；
@@ -439,17 +469,21 @@ $ git remote rename GitHub github
 
    ```bash
    $ cd /F/git-clone
-   ```
-
+	```
+	
 2. 在GitHub中获取克隆地址
 
    <img src="E:\笔记\Git学习\Git.assets\捕获-1621390322428.JPG" align="left"/>
 
 3. 克隆
 
-   `$ git clone git@github.com:letheyan/Python-100-Days.git`
+   `$ git clone git@github.com:letheyan/Python-100-Days.git [本地仓库名]`
 
    等待下载完成。
+   
+   注：[本地仓库名]可不填写，那就是默认的origin。也可以自定义一个名字。
+   
+   初次克隆某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态。
 
 ## 6.6 fetch/pull远程分支
 
@@ -459,14 +493,14 @@ $ git remote rename GitHub github
     $ git fetch origin dev:local       # 从origin仓库的dev分支获取，下载到本地的local分支。
     From gitee.com:lethe00/git-learn
      * [new branch]      dev        -> local
-    ```
+	```
 
     语法：`git fetch 远程仓库 远程分支名:本地分支名`，
-
+    
     注：如果是首次fetch，没有本地分支，则会自动创建，然后下载文件到本地。
-
+    
     如果不是首次，则`:`后面不用再加本地分支名，如下：
-
+    
     ```bash
     $ git fetch origin dev               # 从origin仓库的dev分支拉取到当前分支。
     remote: Enumerating objects: 5, done.
@@ -477,17 +511,17 @@ $ git remote rename GitHub github
     From gitee.com:lethe00/git-learn
      * branch            dev        -> FETCH_HEAD
        f275a2a..46f4079  dev        -> origin/dev
-    ```
+	```
 
     ==此时本地文件不会改变，需再使用merge合并：==
-
+    
     ```bash
     $ git merge origin/dev            # 把fetch过来的远程分支和当前分支进行合并。
     Updating f275a2a..46f4079
     Fast-forward
      test.txt | 3 ++-
      1 file changed, 2 insertions(+), 1 deletion(-)
-    ```
+	```
 
 2. pull使用
 
