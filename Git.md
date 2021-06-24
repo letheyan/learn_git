@@ -359,7 +359,7 @@ The key's randomart image is:
 
 2. 在GitHub中添加密钥
 
-<img src="E:\笔记\Git学习\Git.assets\捕获.JPG" align="left" style="zoom:80%;" />
+<img src=".\Git.assets\捕获.JPG" align="left" style="zoom:80%;" />
 
 其中title就是给这个密钥取个名字，随便什么都可以。
 
@@ -371,13 +371,13 @@ key输入C:\Users\yanhy\.ssh\id_rsa.pub这个文件的内容。
 
 3. 在GitHub中建一个仓库。
 
-   <img src="E:\笔记\Git学习\Git.assets\捕获2.JPG" align="left"/>
+   <img src=".\Git.assets\捕获2.JPG" align="left"/>
 
    
 
 4. 根据提示绑定远程仓库
 
-<img src="E:\笔记\Git学习\Git.assets\捕获3.JPG" align="left" style="zoom:80%;" />
+<img src=".\Git.assets\捕获3.JPG" align="left" style="zoom:80%;" />
 
 ==https协议绑定：==
 
@@ -481,7 +481,7 @@ $ git remote rename GitHub github
 	
 2. 在GitHub中获取克隆地址
 
-   <img src="E:\笔记\Git学习\Git.assets\捕获-1621390322428.JPG" align="left"/>
+   <img src=".\Git.assets\捕获-1621390322428.JPG" align="left"/>
 
 3. 克隆
 
@@ -492,6 +492,8 @@ $ git remote rename GitHub github
    注：[本地仓库名]可不填写，那就是默认的origin。也可以自定义一个名字。
    
    初次克隆某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态。
+   
+   如果克隆的是自己的私有仓库，那需要使用HTTPS的地址，此时会提示输入账号密码。
 
 ## 6.6 fetch/pull远程分支
 
@@ -632,7 +634,7 @@ $ git remote rename GitHub github
 
    合并图例为：
 
-   <img src="E:\笔记\Git学习\Git.assets\捕获-1621402628992.JPG" align="left" />
+   <img src=".\Git.assets\捕获-1621402628992.JPG" align="left" />
 
    
 
